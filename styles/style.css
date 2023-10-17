@@ -66,14 +66,54 @@
   font-size: 14px;
 }
 
-.theme-menu__item button:disabled {
+.theme-menu__item button:hover,
+.theme-menu__item button:focus-visible {
   opacity: 0.6;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  outline: none;
+}
+
+.theme-menu__item button:disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.theme-menu__item button::after {
+  content: '';
+  display: block;
+  width: 0%;
+  height: 2px;
+  background-color: var(--main-font-color);
+}
+
+.theme-menu__item button:focus-visible::after {
+  outline: none;
+  width: 100%;
+  opacity: 0.6;
+  transition: width 0.3s ease, opacity 0.3s ease;
 }
 
 .theme-menu__item button:disabled::before {
   content: '▶';
-  display: inline;
+  display: inline-block;
   opacity: 0.6;
+  animation: cursor-translation 1.5s ease-in-out infinite;
+  /* сделал анимацию с большим временем проигрывания, так как при 0.5 с скорость не соответствовала видео в задании */
+}
+
+@keyframes cursor-translation {
+  0% {
+    transform: translateX(0);
+  }
+  
+  50% {
+    transform: translateX(4px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
 }
 
 main {
@@ -87,6 +127,35 @@ main {
   inline-size: var(--block-width);
   background-color: var(--background-color);
   border: 2px solid var(--main-font-color);
+}
+
+.image-section {
+  position: relative;
+}
+
+.image-text {
+  font-family: var(--accent-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--main-font-color);
+  position: absolute;
+  inset-inline-end: 25px;
+  inset-block-start: 25px;
+  opacity: 0.5;
+  mix-blend-mode: hard-light;
+  text-shadow: -0.2px 0 var(--text-stroke-color), 
+                0 0.2px var(--text-stroke-color), 
+                0.2px 0 var(--text-stroke-color), 
+                0 -0.2px var(--text-stroke-color);;
+}
+
+@supports((text-stroke: 0.2px var(--text-stroke-color)) or (-webkit-text-stroke: 0.2px var(--text-stroke-color))) {
+  .image-text {
+      -webkit-text-stroke: 0.2px var(--text-stroke-color);
+      text-stroke: 0.2px var(--text-stroke-color);
+      text-shadow: none;
+  }
 }
 
 .card-image {
@@ -107,4 +176,35 @@ main {
   line-height: 21px;
   margin-inline: 25px;
   margin-block-start: 27px;
+}
+
+.reaction {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-row: auto;
+  justify-content: end;
+
+}
+
+.card__like-button {
+  display: inline-block;
+  border: 2px solid var(--main-font-color);
+  margin-inline-end: 25px;
+  margin-block: 25px;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: var(--accent-font-family);
+  line-height: 90%;
+  inline-size: 130px;
+  block-size: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__icon-button img {
+  inline-size: 39px;
+  block-size: 36px;
+  position: relative;
+  inset-block-start: 8px;
 }

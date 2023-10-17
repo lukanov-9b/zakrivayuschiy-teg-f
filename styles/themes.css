@@ -13,6 +13,7 @@
                             repeating-linear-gradient(to bottom, #000, transparent 2px),
                             linear-gradient(to bottom, #007f0c, #004306);
     --background-color: #000;
+    --text-stroke-color: #000;
     
 }
 
@@ -25,6 +26,7 @@
                                 repeating-linear-gradient(to bottom, #000, transparent 2px),
                                 linear-gradient(to bottom, #007f0c, #004306);
         --background-color: #000;
+        --text-stroke-color: #000;
       }
   }
 
@@ -36,6 +38,7 @@
                             repeating-linear-gradient(to bottom, #d3d3d3, transparent 2px),
                             linear-gradient(to bottom, #e7e7e7, #1a1a1a);
     --background-color: #fff;
+    --text-stroke-color: #fff;
 }
 
 @media (prefers-color-scheme: light) {
@@ -47,5 +50,6 @@
                                 repeating-linear-gradient(to bottom, #d3d3d3, transparent 2px),
                                 linear-gradient(to bottom, #e7e7e7, #1a1a1a);
         --background-color: #fff;
+        --text-stroke-color: #fff;
       }
   }

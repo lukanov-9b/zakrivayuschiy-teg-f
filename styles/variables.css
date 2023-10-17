@@ -13,9 +13,13 @@
 
     .card-title {
         margin-inline: 10px;
-      }
+    }
 
       .header > p {
         font-size: 14px;
-      }
+    }
+
+    .image-text {
+      inset-inline-end: 11px;
+    }
 }
