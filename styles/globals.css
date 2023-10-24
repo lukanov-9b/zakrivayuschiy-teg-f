@@ -12,6 +12,10 @@ body {
   margin: 0;
 }
 
+button {
+  appearance: none;
+}
+
 h1,
 h2,
 h3,

@@ -18,15 +18,22 @@
   min-inline-size: 320px;
   min-block-size: 100dvb;
   font-size: 18px;
-  color: var(--main-font-color);
+  color: var(--main-font-color, #fff);
   font-family: var(--main-font-family), sans-serif;
   background-image: var(--background-gradient);
   background-size: cover;
-  font-variation-settings: 'wght' var(--main-font-weight);
+  background-attachment: fixed;
+  font-variation-settings: "wght" var(--main-font-weight);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+/* Марина, здравствуйте! */
+/* Никак не могу понять, что не так... Приложу скрин своего сравнения с макетом из Figma*/
+/* https://drive.google.com/file/d/16Ky-llEH7ZjAZwcg7g80WwZ3QWHOPohU/view */
+/* https://drive.google.com/file/d/105TE7QIPJlOaChJ6PzFluIWZHHDTQoPo/view?usp=sharing */
+/* У меня, вроде, отступы все те же, однако на Вашем скрине там немного всё съехало. Можете, пожалуйста, подсказать, где я ошибся. */
 
 .header {
   inline-size: var(--block-width);
@@ -40,19 +47,19 @@
   text-transform: uppercase;
 }
 
-.header button {
+.theme-menu__button {
   text-transform: uppercase;
   font-size: 14px;
+  cursor: pointer;
 }
 
 .title {
   font-weight: 400;
   font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
-  margin-block-start: clamp(136px, 10%, 120px);
-  /* margin-block-start: 136px; */
+  margin-block-start: var(--title-margin);
 }
 
-.header > p {
+.page-name {
   font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
   margin-block: 20px 25px;
 }
@@ -64,23 +71,29 @@
   gap: 10px;
   margin-block-end: 25px;
   font-size: 14px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
-.theme-menu__item button:hover,
-.theme-menu__item button:focus-visible {
+.theme-menu__button:hover {
+  outline: none;
+}
+
+.theme-menu__button:hover,
+.theme-menu__button:focus-visible {
   opacity: 0.6;
   transition: opacity 0.3s ease;
   cursor: pointer;
   outline: none;
 }
 
-.theme-menu__item button:disabled {
+.theme-menu__button:disabled {
   pointer-events: none;
   opacity: 0.6;
 }
 
-.theme-menu__item button::after {
-  content: '';
+.theme-menu__button::after {
+  content: "";
   display: block;
   width: 0%;
   height: 2px;
@@ -95,25 +108,10 @@
 }
 
 .theme-menu__item button:disabled::before {
-  content: '▶';
+  content: "▶";
   display: inline-block;
   opacity: 0.6;
-  animation: cursor-translation 1.5s ease-in-out infinite;
-  /* сделал анимацию с большим временем проигрывания, так как при 0.5 с скорость не соответствовала видео в задании */
-}
-
-@keyframes cursor-translation {
-  0% {
-    transform: translateX(0);
-  }
-  
-  50% {
-    transform: translateX(4px);
-  }
-
-  100% {
-    transform: translateX(0px);
-  }
+  animation: cursor-translation 0.5s ease-in-out infinite alternate;
 }
 
 main {
@@ -126,11 +124,11 @@ main {
 .card {
   inline-size: var(--block-width);
   background-color: var(--background-color);
-  border: 2px solid var(--main-font-color);
+  outline: 2px solid var(--main-font-color);
 }
 
 .card:not(:first-child) {
-  margin-block-start: 57px;
+  margin-block-start: 54px;
 }
 
 .image-section {
@@ -148,42 +146,46 @@ main {
   opacity: 0.5;
   mix-blend-mode: hard-light;
   z-index: 1;
-  text-shadow: -0.2px 0 var(--text-stroke-color), 
-                0 0.2px var(--text-stroke-color), 
-                0.2px 0 var(--text-stroke-color), 
-                0 -0.2px var(--text-stroke-color);;
+  text-shadow: -1px 0 var(--text-stroke-color), 0 1px var(--text-stroke-color),
+    1px 0 var(--text-stroke-color), 0 -1px var(--text-stroke-color);
 }
 
-@supports((text-stroke: 0.2px var(--text-stroke-color)) or (-webkit-text-stroke: 0.2px var(--text-stroke-color))) {
+@supports (
+  (text-stroke: 1px var(--text-stroke-color)) or
+    (-webkit-text-stroke: 1px var(--text-stroke-color))
+) {
   .image-text {
-      -webkit-text-stroke: 0.2px var(--text-stroke-color);
-      text-stroke: 0.2px var(--text-stroke-color);
-      text-shadow: none;
+    -webkit-text-stroke: 1px var(--text-stroke-color);
+    text-stroke: 1px var(--text-stroke-color);
+    text-shadow: none;
   }
 }
 
 .card-image {
-  max-width: 100%;
+  inline-size: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center right;
+  border: 2px solid var(--main-font-color);
 }
 
 .card-title {
   font-variation-settings: var(--accent-font-weight);
   margin-inline: 10px 24px;
   font-size: 18px;
-  min-block-size: 31px;
+  padding-block: 4px;
   display: flex;
   align-items: center;
 }
 
 .card-text {
-  font-weight: var(--main-font-weight);
-  line-height: 21px;
   margin-inline: 25px;
   margin-block-start: 27px;
+  font-family: var(--main-font-weight);
   font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px; /* 116.667% */
 }
 
 .reaction {
@@ -193,7 +195,6 @@ main {
   justify-content: end;
   align-items: center;
   gap: 12px;
-
 }
 
 .card__like-button {
@@ -226,6 +227,7 @@ main {
 
 .like-icon .contour {
   fill: currentColor;
+  transition: fill linear 0.3s;
 }
 
 .like-icon .sparks {
@@ -233,10 +235,10 @@ main {
   opacity: 0;
 }
 
-.like-icon .main-body {
+/* .like-icon .main-body {
   fill: none;
   transition: fill linear 0.3s;
-}
+} */
 
 .like-icon:hover .main-body {
   fill: currentColor;
@@ -245,7 +247,7 @@ main {
 
 .like-icon .core {
   fill: none;
-  transition: fill linear 0.3s 0.03s;
+  transition: fill linear 0.3s 0.05s;
 }
 
 .like-icon:hover .core {
@@ -264,7 +266,7 @@ main {
 }
 
 /* анимации при клике на .like-icon */
-.like-icon.is-liked  .core {
+.like-icon.is-liked .core {
   fill: var(--liked-color);
   transition: fill linear 0.3s;
 }
@@ -280,46 +282,17 @@ main {
 }
 
 .like-icon.is-liked .heart {
-  animation: heart-scaling ease-in 0.3s 0.1s;
+  animation: heart-scaling ease-in 0.3s 0.1s alternate;
 }
 
 .like-icon.is-liked .sparks {
-  animation: sparks ease-in 0.3s 0.3s;
-}
-
-@keyframes heart-scaling {
-  0% {
-    scale: 1;
-  }
-
-  50% {
-    scale: 1.5;
-  }
-
-  100% {
-    scale: 1.0;
-  }
-}
-
-@keyframes sparks {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
+  animation: sparks ease-in 0.3s 0.3s alternate;
 }
 
 .button-interactive {
   position: relative;
   cursor: pointer;
   overflow: hidden;
-  display: inline-block;
   border: 2px solid var(--main-font-color);
   font-size: 14px;
   font-weight: 400;
@@ -328,22 +301,24 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .button-interactive:focus {
   outline: none;
+}
+
+.button-interactive:focus-visible {
   box-shadow: 2px 2px 0 0 var(--main-font-color);
   transition: box-shadow 0.3s ease;
   position: relative;
 }
 
 .button-interactive::before {
-  content: '';
+  content: "";
   background-color: var(--blend-mode-color);
   position: absolute;
   inset: -2px 0;
-  translate: -100% 0;
+  transform: translateX(-100%);
   animation: move-backword 0.5s ease-in-out forwards;
   mix-blend-mode: difference;
 }
@@ -352,32 +327,11 @@ main {
   animation: move 0.5s ease-in-out forwards;
 }
 
-
-@keyframes move {
-  from {
-    translate: -100% 0;
-  }
-
-  to {
-    translate: 0% 0%;
-  }
-}
-
-@keyframes move-backword {
-  from {
-    translate: -0% 0;
-  }
-
-  to {
-    translate: -100% 0%;
-  }
-}
-
 .save-button {
   min-inline-size: 306px;
-  max-inline-size: 355px;
+  max-inline-size: 335px;
   inline-size: 24.6%;
-  min-block-size: 38px;
+  min-block-size: 51px;
   margin-block: 54px 102px;
   background-color: var(--background-color);
   gap: 8px;
@@ -397,7 +351,6 @@ dialog {
   font-size: 14px;
   font-weight: 400;
   border: 2px solid var(--main-font-color);
-  outline: none;
   inline-size: min(90.9%, 357px);
   padding: 30px;
   position: fixed;
@@ -406,18 +359,18 @@ dialog {
 }
 
 dialog::backdrop {
-  background-color: rgb(0 0 0 / 0.75);
+  background-color: var(--backdrop-color, rgb(0 0 0 / 0.75));
 }
 
 .dialog-content {
-  display: flex;
+  display: grid;
+  grid-template-columns: 39px auto;
   gap: 20px;
   justify-content: center;
 }
 
-.dialog-content svg {
-  inline-size: 39px;
-  aspect-ratio: 1/1;
+.dialog-content .floppy {
+  inline-size: 100%;
 }
 
 .dialog-button {
