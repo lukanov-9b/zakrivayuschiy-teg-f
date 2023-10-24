@@ -1,1 +1,1 @@
-git@github.com:lukanov-9b/zakrivayuschiy-teg-f.git
+https://lukanov-9b.github.io/zakrivayuschiy-teg-f/
